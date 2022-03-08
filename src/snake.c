@@ -32,14 +32,53 @@ Every frame:
 */
 
 #include <stdio.h>
+#include <winuser.h>
+
+#define ROWS 10
+#define COLS 10
+
+
+char checkKb() {
+  
+  if (GetKeyState(0x57) < 0) return 'w';
+  if (GetKeyState(0x41) < 0) return 'a';
+  if (GetKeyState(0x53) < 0) return 's';
+  if (GetKeyState(0x44) < 0) return 'd';
+
+  return '\0';
+
+}
+
+
+void drawFrame(int grid) {
+  for (int x = 0; )
+}
+
+
 int main() {
-    
-    int rows = 10;
-    int cols = 10;
 
-    int snake[rows*cols][2];
-
+    int snake[ROWS*COLS][2] = { {5,5}, {5,4}, {5,3} };
     
+    char grid[ROWS][COLS];
+
+    char keyPress;
+    char key = 'd';
+
+
+    //while (1) {
+
+      //keyPress = checkKb();
+
+      //if (keyPress != '\0') 
+        //key = keyPress;
+
+      for (int i = 0; i < ROWS*COLS; i++)
+        grid[ snake[i][0] ][ snake[i][1] ] = 178;
+
+      drawFrame(grid);
+
+    //}
 
     return 0;
+
 }
