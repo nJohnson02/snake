@@ -32,11 +32,11 @@ Every frame:
 */
 
 #include <stdio.h>
+#include <stdlib.h>
 #include <winuser.h>
 
 #define ROWS 10
-#define COLS 10
-
+#define COLS 50
 
 char checkKb() {
   
@@ -50,27 +50,68 @@ char checkKb() {
 }
 
 
-void drawFrame(int grid) {
+void drawFrame(char frame[ROWS][COLS]) {
   
+  system("cls");
+
+  // Print top border
+  printf("+");
+  for (int x = 0; x < COLS; x++)
+    printf("-");
+
+  printf("+\n");
+
+  // Print Board
   for (int i = 0; i < ROWS; i++) {
     
+    printf("|");
+
     for (int j = 0; j < COLS; j++)
-      printf("%c", grid[i][j]);
+      printf("%c", frame[i][j]);
   
-    printf("\n");
+    printf("|\n");
   
   }
+
+  // Print bottom border
+  printf("+");
+  for (int x = 0; x < COLS; x++)
+    printf("-");
+
+  printf("+\n");
 
 }
 
 
 int main() {
 
+    // Initialize variables
     char grid[ROWS][COLS];
-    int snake[ROWS*COLS][2] = { {5,5}, {5,4}, {5,3} };
+    int snake[ROWS*COLS][2];
     char keyPress;
     char key = 'd';
 
+    // Initialize board
+    for (int i = 0; i < ROWS; i++) {
+      for (int j = 0; j < COLS; j++){
+        grid[i][j] = ' ';
+      }
+    }
+
+    // Initialize snake
+    for (int i = 0; i < ROWS*COLS; i++) {
+        snake[i][0] = -1;
+        snake[i][1] = -1;
+    }
+
+    snake[0][0] = 5;
+    snake[0][1] = 5;
+
+    snake[1][0] = 5;
+    snake[1][1] = 4;
+
+    snake[2][0] = 5;
+    snake[2][1] = 3;
 
     //while (1) {
 
@@ -80,7 +121,7 @@ int main() {
         //key = keyPress;
 
       for (int i = 0; i < ROWS*COLS; i++)
-        grid[ snake[i][0] ][ snake[i][1] ] = 178;
+        grid[snake[i][0]][snake[i][1]] = 178;
 
       drawFrame(grid);
 
