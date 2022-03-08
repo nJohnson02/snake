@@ -51,16 +51,23 @@ char checkKb() {
 
 
 void drawFrame(int grid) {
-  for (int x = 0; )
+  
+  for (int i = 0; i < ROWS; i++) {
+    
+    for (int j = 0; j < COLS; j++)
+      printf("%c", grid[i][j]);
+  
+    printf("\n");
+  
+  }
+
 }
 
 
 int main() {
 
-    int snake[ROWS*COLS][2] = { {5,5}, {5,4}, {5,3} };
-    
     char grid[ROWS][COLS];
-
+    int snake[ROWS*COLS][2] = { {5,5}, {5,4}, {5,3} };
     char keyPress;
     char key = 'd';
 
