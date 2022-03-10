@@ -1,42 +1,10 @@
-/*
-
-Create the snake [array of coords]
-Max length of snake = area of board
-
-Create a length variable
-Increment length every time the snake grows
-
-Pick an empty space for food every time the snake grows
-
-Every frame:
-    check the last key press
-    move snake in direction of keypress
-    wait
-
-
-
-  0 1 2 3 4 5 6 7 8 9
-0
-1
-2
-3
-4
-5
-6
-7
-8
-9
-
-{{5,5},{5,4}}
-
-*/
-
 #include <stdio.h>
 #include <stdlib.h>
+#include <windows.h>
 #include <winuser.h>
 
-#define ROWS 10
-#define COLS 50
+#define ROWS 25
+#define COLS 100
 
 char checkKb() {
   
@@ -44,45 +12,42 @@ char checkKb() {
   if (GetKeyState(0x41) < 0) return 'a';
   if (GetKeyState(0x53) < 0) return 's';
   if (GetKeyState(0x44) < 0) return 'd';
-
+  
   return '\0';
 
 }
 
-
 void drawFrame(char frame[ROWS][COLS]) {
   
-  system("cls");
+  system("clear");
 
   // Print top border
-  printf("+");
-  for (int x = 0; x < COLS; x++)
-    printf("-");
+  for (int i = 0; i < COLS+4; i++)
+    printf("%c", 219);
 
-  printf("+\n");
+  printf("\n");
 
   // Print Board
   for (int i = 0; i < ROWS; i++) {
     
-    printf("|");
+    printf("%c%c", 219, 219);
+    printf("\033[1;32m");
 
     for (int j = 0; j < COLS; j++)
       printf("%c", frame[i][j]);
-  
-    printf("|\n");
+
+    printf("\033[0m");
+    printf("%c%c\n", 219, 219);
   
   }
 
   // Print bottom border
-  printf("+");
-  for (int x = 0; x < COLS; x++)
-    printf("-");
+  for (int i = 0; i < COLS+4; i++)
+    printf("%c", 219);
 
-  printf("+\n");
+  printf("\n");
 
 }
-
-
 int main() {
 
     // Initialize variables
@@ -100,10 +65,11 @@ int main() {
 
     // Initialize snake
     for (int i = 0; i < ROWS*COLS; i++) {
-        snake[i][0] = -1;
-        snake[i][1] = -1;
+      snake[i][0] = -1;
+      snake[i][1] = -1;
     }
 
+    ///// Test /////
     snake[0][0] = 5;
     snake[0][1] = 5;
 
@@ -112,16 +78,19 @@ int main() {
 
     snake[2][0] = 5;
     snake[2][1] = 3;
+    ////////////////
 
+    // Game loop
     //while (1) {
 
-      //keyPress = checkKb();
+      keyPress = checkKb();
 
-      //if (keyPress != '\0') 
-        //key = keyPress;
+      if (keyPress != '\0') 
+        key = keyPress;
 
       for (int i = 0; i < ROWS*COLS; i++)
-        grid[snake[i][0]][snake[i][1]] = 178;
+        if (snake[i][0] > 0 && snake[i][1] > 0)
+          grid[snake[i][0]][snake[i][1]] = 178;
 
       drawFrame(grid);
 
@@ -130,3 +99,4 @@ int main() {
     return 0;
 
 }
+
