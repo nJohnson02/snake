@@ -3,6 +3,7 @@
 #include <windows.h>
 #include <winuser.h>
 
+
 #define ROWS 25
 #define COLS 100
 
@@ -19,7 +20,7 @@ char checkKb() {
 
 void drawFrame(char frame[ROWS][COLS]) {
   
-  system("clear");
+  system("cls");
 
   // Print top border
   for (int i = 0; i < COLS+4; i++)
@@ -55,13 +56,7 @@ int main() {
     int snake[ROWS*COLS][2];
     char keyPress;
     char key = 'd';
-
-    // Initialize board
-    for (int i = 0; i < ROWS; i++) {
-      for (int j = 0; j < COLS; j++){
-        grid[i][j] = ' ';
-      }
-    }
+    int score = 1;
 
     // Initialize snake
     for (int i = 0; i < ROWS*COLS; i++) {
@@ -69,32 +64,53 @@ int main() {
       snake[i][1] = -1;
     }
 
-    ///// Test /////
-    snake[0][0] = 5;
-    snake[0][1] = 5;
-
-    snake[1][0] = 5;
-    snake[1][1] = 4;
-
-    snake[2][0] = 5;
-    snake[2][1] = 3;
-    ////////////////
+    // Set starting position
+    snake[0][0] = ROWS/2;
+    snake[0][1] = COLS/2;
 
     // Game loop
-    //while (1) {
+    while (1) {
+      
+      //sleep(0.2);
 
+      // Check keyboard
       keyPress = checkKb();
-
       if (keyPress != '\0') 
         key = keyPress;
 
+      // Move
+      for (int i = 0; i < ROWS*COLS; i++) {
+        switch (key) {
+          case 'w':
+            snake[i][0]--;
+            break;
+          case 'a':
+            snake[i][1]--;
+            break;
+          case 's':
+            snake[i][0]++;
+            break;
+          case 'd':
+            snake[i][1]++;
+            break;
+        }
+      }
+      
+      // Reset grid
+      for (int i = 0; i < ROWS; i++) {
+        for (int j = 0; j < COLS; j++){
+          grid[i][j] = ' ';
+        }
+      }
+
+      // Update grid
       for (int i = 0; i < ROWS*COLS; i++)
         if (snake[i][0] > 0 && snake[i][1] > 0)
           grid[snake[i][0]][snake[i][1]] = 178;
 
       drawFrame(grid);
 
-    //}
+    }
 
     return 0;
 
