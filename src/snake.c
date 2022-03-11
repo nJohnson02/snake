@@ -55,8 +55,10 @@ int main() {
     char grid[ROWS][COLS];
     int snake[ROWS*COLS][2];
     char keyPress;
-    char key = 'd';
+    char key;
     int score = 1;
+
+    srand(878);
 
     // Initialize snake
     for (int i = 0; i < ROWS*COLS; i++) {
@@ -65,35 +67,44 @@ int main() {
     }
 
     // Set starting position
-    snake[0][0] = ROWS/2;
-    snake[0][1] = COLS/2;
+    snake[0][0] = 5;
+    snake[0][1] = 5;
+    
+    snake[1][0] = 4;
+    snake[1][1] = 5;
+
+    snake[2][0] = 3;
+    snake[2][1] = 5;
 
     // Game loop
     while (1) {
       
-      //sleep(0.2);
+      Sleep(300);
 
       // Check keyboard
       keyPress = checkKb();
       if (keyPress != '\0') 
         key = keyPress;
+      
+      switch (key) {
+        case 'w':
+          snake[0][0]--;
+          break;
+        case 'a':
+          snake[0][1]--;
+          break;
+        case 's':
+          snake[0][0]++;
+          break;
+        default:
+          snake[0][1]++;
+          break;
+      }
 
       // Move
-      for (int i = 0; i < ROWS*COLS; i++) {
-        switch (key) {
-          case 'w':
-            snake[i][0]--;
-            break;
-          case 'a':
-            snake[i][1]--;
-            break;
-          case 's':
-            snake[i][0]++;
-            break;
-          case 'd':
-            snake[i][1]++;
-            break;
-        }
+      for (int i = 1; i < ROWS*COLS; i++) {
+        snake[i][0] = snake[i-1][0];
+        snake[i][1] = snake[i-1][1];
       }
       
       // Reset grid
@@ -107,6 +118,8 @@ int main() {
       for (int i = 0; i < ROWS*COLS; i++)
         if (snake[i][0] > 0 && snake[i][1] > 0)
           grid[snake[i][0]][snake[i][1]] = 178;
+
+      grid[rand()%ROWS][rand()%COLS] = 162;
 
       drawFrame(grid);
 
