@@ -1,11 +1,26 @@
 #include <stdio.h>
 #include <stdlib.h>
+#include <time.h>
 #include <windows.h>
 #include <winuser.h>
 
 
 #define ROWS 25
 #define COLS 100
+
+//how to make colored text: https://www.theurbanpenguin.com/4184-2/
+
+void colorRed() {
+  printf("\033[0;31m");
+}
+
+void colorGreen() {
+  printf("\033[1;32m");
+}
+
+void colorDefault() {
+  printf("\033[0m");
+}
 
 char checkKb() {
   
@@ -18,7 +33,7 @@ char checkKb() {
 
 }
 
-void drawFrame(char frame[ROWS][COLS]) {
+void drawFrame(unsigned char frame[ROWS][COLS]) {
   
   system("cls");
 
@@ -28,16 +43,26 @@ void drawFrame(char frame[ROWS][COLS]) {
 
   printf("\n");
 
-  // Print Board
+  // Print board
   for (int i = 0; i < ROWS; i++) {
     
+    // Left border
     printf("%c%c", 219, 219);
-    printf("\033[1;32m");
+    
+    for (int j = 0; j < COLS; j++) {
+      
+      if (frame[i][j] == 162)
+        colorRed();
+      else
+        colorGreen();
 
-    for (int j = 0; j < COLS; j++)
       printf("%c", frame[i][j]);
 
-    printf("\033[0m");
+    }
+
+    colorDefault();
+
+    // Right border
     printf("%c%c\n", 219, 219);
   
   }
@@ -52,14 +77,14 @@ void drawFrame(char frame[ROWS][COLS]) {
 int main() {
 
     // Initialize variables
-    char grid[ROWS][COLS];
+    unsigned char grid[ROWS][COLS];
     int snake[ROWS*COLS][2];
     char keyPress;
     char key;
     int score = 1;
-    int apple[1][2];
+    int apple[2];
 
-    srand(878);
+    srand(time(NULL));
 
     // Initialize snake
     for (int i = 0; i < ROWS*COLS; i++) {
@@ -78,8 +103,8 @@ int main() {
     snake[2][1] = 5;
 
     // Set Starting Apple
-    apple[0][0] = rand()%ROWS;
-    apple[0][1] = rand()%COLS;
+    apple[0] = rand()%ROWS;
+    apple[1] = rand()%COLS;
 
     // Game loop
     while (1) {
@@ -124,7 +149,7 @@ int main() {
         if (snake[i][0] > 0 && snake[i][1] > 0)
           grid[snake[i][0]][snake[i][1]] = 178;
       
-      grid[apple[0][0]][apple[0][1]] = 162;
+      grid[apple[0]][apple[1]] = 162;
 
       drawFrame(grid);
 
