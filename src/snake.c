@@ -5,8 +5,8 @@
 #include <winuser.h>
 
 
-#define ROWS 25
-#define COLS 100
+#define ROWS 15
+#define COLS 75
 
 //how to make colored text: https://www.theurbanpenguin.com/4184-2/
 
@@ -81,7 +81,7 @@ int main() {
     int snake[ROWS*COLS][2];
     char keyPress;
     char key;
-    int score = 1;
+    int score = 3;
     int apple[2];
 
     srand(time(NULL));
@@ -132,27 +132,36 @@ int main() {
       }
 
       // Move
-      for (int i = 1; i < ROWS*COLS; i++) {
+      for (int i = score-1; i < -1; i--) {
         snake[i][0] = snake[i-1][0];
         snake[i][1] = snake[i-1][1];
+
       }
-      
+
+      // Update apple
+      if (grid[apple[0]][apple[1]] == grid[snake[0][0]][snake[0][1]]) {
+        apple[0] = rand()%ROWS;
+        apple[1] = rand()%COLS;
+        score++;
+      }
+
       // Reset grid
       for (int i = 0; i < ROWS; i++) {
-        for (int j = 0; j < COLS; j++){
+        for (int j = 0; j < COLS; j++) {
           grid[i][j] = ' ';
         }
       }
 
       // Update grid
-      for (int i = 0; i < ROWS*COLS; i++) 
+      for (int i = 0; i < ROWS*COLS; i++) {
         if (snake[i][0] > 0 && snake[i][1] > 0)
           grid[snake[i][0]][snake[i][1]] = 178;
-      
+      }
+
       grid[apple[0]][apple[1]] = 162;
 
       drawFrame(grid);
-
+      printf("%d %d, %d %d, %d %d", snake[0][0],snake[0][1],snake[1][0],snake[1][1],snake[2][0],snake[2][1]);
     }
 
     return 0;
