@@ -57,6 +57,7 @@ int main() {
     char keyPress;
     char key;
     int score = 1;
+    int apple[1][2];
 
     srand(878);
 
@@ -75,6 +76,10 @@ int main() {
 
     snake[2][0] = 3;
     snake[2][1] = 5;
+
+    // Set Starting Apple
+    apple[0][0] = rand()%ROWS;
+    apple[0][1] = rand()%COLS;
 
     // Game loop
     while (1) {
@@ -115,11 +120,11 @@ int main() {
       }
 
       // Update grid
-      for (int i = 0; i < ROWS*COLS; i++)
+      for (int i = 0; i < ROWS*COLS; i++) 
         if (snake[i][0] > 0 && snake[i][1] > 0)
           grid[snake[i][0]][snake[i][1]] = 178;
-
-      grid[rand()%ROWS][rand()%COLS] = 162;
+      
+      grid[apple[0][0]][apple[0][1]] = 162;
 
       drawFrame(grid);
 
@@ -128,4 +133,3 @@ int main() {
     return 0;
 
 }
-
