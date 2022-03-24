@@ -5,8 +5,8 @@
 #include <winuser.h>
 
 
-#define ROWS 15
-#define COLS 75
+#define ROWS 10
+#define COLS 30
 
 //how to make colored text: https://www.theurbanpenguin.com/4184-2/
 
@@ -38,7 +38,7 @@ void drawFrame(unsigned char frame[ROWS][COLS]) {
   system("cls");
 
   // Print top border
-  for (int i = 0; i < COLS+4; i++)
+  for (int i = 0; i < 2*COLS+4; i++)
     printf("%c", 219);
 
   printf("\n");
@@ -57,6 +57,7 @@ void drawFrame(unsigned char frame[ROWS][COLS]) {
         colorGreen();
 
       printf("%c", frame[i][j]);
+      printf("%c", frame[i][j]);
 
     }
 
@@ -68,7 +69,7 @@ void drawFrame(unsigned char frame[ROWS][COLS]) {
   }
 
   // Print bottom border
-  for (int i = 0; i < COLS+4; i++)
+  for (int i = 0; i < 2*COLS+4; i++)
     printf("%c", 219);
 
   printf("\n");
@@ -81,7 +82,7 @@ int main() {
     int snake[ROWS*COLS][2];
     char keyPress;
     char key;
-    int score = 3;
+    int score = 1;
     int apple[2];
 
     srand(time(NULL));
@@ -95,12 +96,6 @@ int main() {
     // Set starting position
     snake[0][0] = 5;
     snake[0][1] = 5;
-    
-    snake[1][0] = 4;
-    snake[1][1] = 5;
-
-    snake[2][0] = 3;
-    snake[2][1] = 5;
 
     // Set Starting Apple
     apple[0] = rand()%ROWS;
@@ -110,6 +105,12 @@ int main() {
     while (1) {
       
       Sleep(300);
+
+      // Move
+      for (int i = score-1; i >= 1; i--) {
+        snake[i][0] = snake[i-1][0];
+        snake[i][1] = snake[i-1][1];
+      }
 
       // Check keyboard
       keyPress = checkKb();
@@ -129,12 +130,6 @@ int main() {
         default:
           snake[0][1]++;
           break;
-      }
-
-      // Move
-      for (int i = score-1; i >= 1; i--) {
-        snake[i][0] = snake[i-1][0];
-        snake[i][1] = snake[i-1][1];
       }
 
       // Update apple
