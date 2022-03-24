@@ -101,6 +101,11 @@ int main() {
     // Set Starting Apple
     apple[0] = rand()%ROWS;
     apple[1] = rand()%COLS;
+  
+    while (apple[0] == snake[0][0] && apple[1] == snake[0][1]) {
+      apple[0] = rand()%ROWS;
+      apple[1] = rand()%COLS;
+    }
 
     // Game loop
     while (alive) {
@@ -138,6 +143,13 @@ int main() {
         apple[0] = rand()%ROWS;
         apple[1] = rand()%COLS;
         score++;
+        
+        for (int i = 0; i < ROWS*COLS; i++) {
+          while (apple[0] == snake[i][0] && apple[1] == snake[i][1]) {
+            apple[0] = rand()%ROWS;
+            apple[1] = rand()%COLS;
+          }
+        }
       }
 
       // Check for death
