@@ -148,12 +148,14 @@ int main() {
       for (int i = 1; i < ROWS*COLS; i++) {
         if (snake[0][0] == snake[i][0] && snake[0][1] == snake[i][1])
           alive = 0;
-        if (snake[0][0] > ROWS || snake[0][0] < 0)
+        if (snake[0][0] >= COLS || snake[0][0] < 0)
           alive = 0;
-        if (snake[0][1] > COLS || snake[0][1] < 0)
+        if (snake[0][1] >= ROWS || snake[0][1] < 0)
           alive = 0;
       }
 
+      if (!alive) break;
+      
 
       // Reset grid
       for (int i = 0; i < ROWS; i++) {
@@ -170,8 +172,10 @@ int main() {
       }
 
       grid[apple[0]][apple[1]] = 219;
-
       drawFrame(grid);
+
+      //Print Score
+      printf("Size: %d\n", score);
 
 
     }
