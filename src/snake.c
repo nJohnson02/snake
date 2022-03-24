@@ -5,8 +5,8 @@
 #include <winuser.h>
 
 
-#define ROWS 10
-#define COLS 30
+#define ROWS 20
+#define COLS 20
 
 //how to make colored text: https://www.theurbanpenguin.com/4184-2/
 
@@ -51,7 +51,7 @@ void drawFrame(unsigned char frame[ROWS][COLS]) {
     
     for (int j = 0; j < COLS; j++) {
       
-      if (frame[i][j] == 162)
+      if (frame[i][j] == 219)
         colorRed();
       else
         colorGreen();
@@ -84,6 +84,7 @@ int main() {
     char key;
     int score = 1;
     int apple[2];
+    int alive = 1;
 
     srand(time(NULL));
 
@@ -102,15 +103,17 @@ int main() {
     apple[1] = rand()%COLS;
 
     // Game loop
-    while (1) {
+    while (alive) {
       
       Sleep(300);
+
 
       // Move
       for (int i = score-1; i >= 1; i--) {
         snake[i][0] = snake[i-1][0];
         snake[i][1] = snake[i-1][1];
       }
+
 
       // Check keyboard
       keyPress = checkKb();
@@ -132,12 +135,25 @@ int main() {
           break;
       }
 
-      // Update apple
+
+      // Eat apple
       if (grid[apple[0]][apple[1]] == grid[snake[0][0]][snake[0][1]]) {
         apple[0] = rand()%ROWS;
         apple[1] = rand()%COLS;
         score++;
       }
+
+
+      // Check for death
+      for (int i = 1; i < ROWS*COLS; i++) {
+        if (snake[0][0] == snake[i][0] && snake[0][1] == snake[i][1])
+          alive = 0;
+        if (snake[0][0] > ROWS || snake[0][0] < 0)
+          alive = 0;
+        if (snake[0][1] > COLS || snake[0][1] < 0)
+          alive = 0;
+      }
+
 
       // Reset grid
       for (int i = 0; i < ROWS; i++) {
@@ -146,16 +162,18 @@ int main() {
         }
       }
 
+
       // Update grid
       for (int i = 0; i < ROWS*COLS; i++) {
         if (snake[i][0] >= 0 && snake[i][1] >= 0)
           grid[snake[i][0]][snake[i][1]] = 178;
       }
 
-      grid[apple[0]][apple[1]] = 162;
+      grid[apple[0]][apple[1]] = 219;
 
       drawFrame(grid);
-      printf("%d %d, %d %d, %d %d", snake[0][0],snake[0][1],snake[1][0],snake[1][1],snake[2][0],snake[2][1]);
+
+
     }
 
     return 0;
