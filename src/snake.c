@@ -5,8 +5,8 @@
 #include <winuser.h>
 
 
-#define ROWS 20
-#define COLS 20
+#define ROWS 10
+#define COLS 30
 
 //how to make colored text: https://www.theurbanpenguin.com/4184-2/
 
@@ -105,15 +105,13 @@ int main() {
     // Game loop
     while (alive) {
       
-      Sleep(300);
-
+      Sleep(300);     
 
       // Move
       for (int i = score-1; i >= 1; i--) {
         snake[i][0] = snake[i-1][0];
         snake[i][1] = snake[i-1][1];
       }
-
 
       // Check keyboard
       keyPress = checkKb();
@@ -135,14 +133,12 @@ int main() {
           break;
       }
 
-
       // Eat apple
       if (grid[apple[0]][apple[1]] == grid[snake[0][0]][snake[0][1]]) {
         apple[0] = rand()%ROWS;
         apple[1] = rand()%COLS;
         score++;
       }
-
 
       // Check for death
       for (int i = 1; i < ROWS*COLS; i++) {
@@ -163,7 +159,6 @@ int main() {
           grid[i][j] = ' ';
         }
       }
-
 
       // Update grid
       for (int i = 0; i < ROWS*COLS; i++) {
