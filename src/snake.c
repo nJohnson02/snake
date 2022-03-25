@@ -4,12 +4,14 @@
 #include <windows.h>
 #include <winuser.h>
 
-
-#define ROWS 20
-#define COLS 20
+#define ROWS 15
+#define COLS 15
+#define SPEED 250
 
 //how to make colored text: https://www.theurbanpenguin.com/4184-2/
 //ascii table https://www.keepandshare.com/userpics/r/o/b/e/rt/2019-12/sb/screen_shot_2019_12_01_at_3.26.20_pm-34867850.jpg?ts=1575242835
+
+
 
 void colorRed() {
   printf("\033[0;31m");
@@ -23,6 +25,8 @@ void colorDefault() {
   printf("\033[0m");
 }
 
+
+
 char checkKb() {
   
   if (GetKeyState(0x57) < 0) return 'w';
@@ -33,6 +37,8 @@ char checkKb() {
   return '\0';
 
 }
+
+
 
 void drawFrame(unsigned char frame[ROWS][COLS]) {
   
@@ -75,6 +81,9 @@ void drawFrame(unsigned char frame[ROWS][COLS]) {
   printf("\n");
 
 }
+
+
+
 int main() {
 
     // Initialize variables
@@ -110,7 +119,7 @@ int main() {
     // Game loop
     while (alive) {
       
-      Sleep(300);     
+      Sleep(SPEED);     
 
 
       // Move
