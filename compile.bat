@@ -1,0 +1,1 @@
+gcc src/main.c src/checkKb.c src/colors.c src/drawFrame.c
