@@ -1,3 +1,6 @@
+
+// NOTE: This program is only compatible with Windows because we couldn't figure out how to detect keyboard input in linux.
+
 #include "main.h"
 
 //how to make colored text: https://www.theurbanpenguin.com/4184-2/
@@ -5,7 +8,7 @@
 
 int main() {
 
-    // Initialize vars
+    // Initialize variables
     unsigned char grid[ROWS][COLS];
     int snake[ROWS*COLS][2];
     char keyPress;
@@ -51,6 +54,7 @@ int main() {
 
     printf("\nPress space to start...\n");
     while (!(GetKeyState(0x20) < 0)) ;
+
 
     // Game loop
     while (alive) {
@@ -110,7 +114,6 @@ int main() {
         apple[0] = rand()%ROWS;
         apple[1] = rand()%COLS;
         score++;
-        
         for (int i = 0; i < ROWS*COLS; i++) {
           while (apple[0] == snake[i][0] && apple[1] == snake[i][1]) {
             apple[0] = rand()%ROWS;
