@@ -4,9 +4,9 @@
 #include <windows.h>
 #include <winuser.h>
 
-#define ROWS 15
-#define COLS 15
-#define SPEED 250
+#define ROWS 20
+#define COLS 20
+#define SPEED 150
 
 //how to make colored text: https://www.theurbanpenguin.com/4184-2/
 //ascii table https://www.keepandshare.com/userpics/r/o/b/e/rt/2019-12/sb/screen_shot_2019_12_01_at_3.26.20_pm-34867850.jpg?ts=1575242835
@@ -86,7 +86,7 @@ void drawFrame(unsigned char frame[ROWS][COLS]) {
 
 int main() {
 
-    // Initialize variables
+    // Initialize vars
     unsigned char grid[ROWS][COLS];
     int snake[ROWS*COLS][2];
     char keyPress;
@@ -94,20 +94,21 @@ int main() {
     int score = 1;
     int apple[2];
     int alive = 1;
+    char c;
+    FILE* f;
 
     srand(time(NULL));
 
-    // Initialize snake
+
+    // Initialize game
     for (int i = 0; i < ROWS*COLS; i++) {
       snake[i][0] = -1;
       snake[i][1] = -1;
     }
 
-    // Set starting position
     snake[0][0] = ROWS/2-1;
     snake[0][1] = COLS/2-1;
 
-    // Set Starting Apple
     apple[0] = rand()%ROWS;
     apple[1] = rand()%COLS;
   
@@ -115,6 +116,22 @@ int main() {
       apple[0] = rand()%ROWS;
       apple[1] = rand()%COLS;
     }
+
+
+    // Display title screen
+    system("cls");
+
+    printf("WELCOME TO\n");
+
+    colorGreen();
+    f = fopen("./assets/snek.txt", "r");
+    while ((c = fgetc(f)) != EOF)
+        printf ("%c", c);
+    colorDefault();
+    fclose(f);
+
+    printf("\nPress space to start...\n");
+    while (!(GetKeyState(0x20) < 0)) ;
 
     // Game loop
     while (alive) {
