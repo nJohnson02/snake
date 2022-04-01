@@ -1,6 +1,6 @@
 #include "main.h"
 
-void drawFrame(unsigned char frame[ROWS][COLS]) {
+void drawFrame(unsigned char grid[ROWS][COLS]) {
   
   system("cls");
 
@@ -18,12 +18,12 @@ void drawFrame(unsigned char frame[ROWS][COLS]) {
     
     for (int j = 0; j < COLS; j++) {
       
-      if (frame[i][j] == 219)
+      if (grid[i][j] == 219)
         colorRed();
       else
         colorGreen();
 
-      printf("%c%c", frame[i][j], frame[i][j]);
+      printf("%c%c", grid[i][j], grid[i][j]);
 
     }
 
