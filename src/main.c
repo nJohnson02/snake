@@ -3,9 +3,6 @@
 
 #include "main.h"
 
-//how to make colored text: https://www.theurbanpenguin.com/4184-2/
-//ascii table https://www.keepandshare.com/userpics/r/o/b/e/rt/2019-12/sb/screen_shot_2019_12_01_at_3.26.20_pm-34867850.jpg?ts=1575242835
-
 int main() {
 
     // Initialize variables
