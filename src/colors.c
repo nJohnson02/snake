@@ -1,3 +1,6 @@
+// Nathan Johnson
+// Tiaron Starrine
+
 //how to make colored text: https://www.theurbanpenguin.com/4184-2/
 
 #include "main.h"

@@ -1,3 +1,5 @@
+// Nathan Johnson
+// Tiaron Starrine
 
 // NOTE: This program is only compatible with Windows because we couldn't figure out how to detect keyboard input in linux.
 

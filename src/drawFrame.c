@@ -1,3 +1,6 @@
+// Nathan Johnson
+// Tiaron Starrine
+
 #include "main.h"
 #include "dependencies.h"
 

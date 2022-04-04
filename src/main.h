@@ -1,3 +1,6 @@
+// Nathan Johnson
+// Tiaron Starrine
+
 #define ROWS 20
 #define COLS 20
 #define SPEED 150
