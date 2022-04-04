@@ -1,6 +1,7 @@
 //how to make colored text: https://www.theurbanpenguin.com/4184-2/
 
 #include "main.h"
+#include "dependencies.h"
 
 void colorRed() {
   printf("\033[0;31m");

@@ -1,4 +1,5 @@
 #include "main.h"
+#include "dependencies.h"
 
 void drawFrame(unsigned char grid[ROWS][COLS]) {
   
